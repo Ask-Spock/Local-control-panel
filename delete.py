@@ -6,8 +6,8 @@ def Delete():
 
     print("Delete Script Activated:\n")
 
-    File_Name = input("Enter file name to be deleted or press * for whole files in folder:")
-    StringToBeDelted = input("Enter the string you want to delete:")
+    File_Name = "test.html" #input("Enter file name to be deleted or press * for whole files in folder:")
+    StringToBeDelted = "Thomas" #input("Enter the string you want to delete:")
 
 
     #Test for which operation: change on file or running on all files.
@@ -50,12 +50,41 @@ def ChangeSingleFile(file_name,StringToBeDelted):
 
 
 def test_if_string_exists_and_delete(file_name,StringToBeDelted):
+
+    does_string_exsists = False
+    
+
     print("Test if string exsists:\n")
 
     with open(file_name) as target_file:
-     if file_name in target_file.read():
-         print("string exsists\n")
+     if StringToBeDelted in target_file.read():
+        print("string_exsists.\n")
+        does_string_exsists = True
     
+    if(does_string_exsists):
+        #read input file
+        fin = open(file_name, "rt")
+        #read file contents to string
+        data = fin.read()
+        #replace all occurrences of the required string
+        data = data.replace(StringToBeDelted, '')
+        #close the input file
+        fin.close()
+        #open the input file in write mode
+        fin = open(file_name, "wt")
+        #overrite the input file with the resulting data
+        fin.write(data)
+        #close the file
+        fin.close()
+        print("Text deleted.\n")
+
+    else:
+        print("Text does not exsist in file, program exit.\n")
+        exit()
+
+
+        
+
 
 
 
