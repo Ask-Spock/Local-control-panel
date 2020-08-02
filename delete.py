@@ -2,12 +2,11 @@ import os
 
 #The Main function of the moudlue.
 #Can Delete String in one file or run on all files in folders and delete a string inside.
-def Delete():
+def Delete(File_Name, StringToBeDelted):
 
     print("Delete Script Activated:\n")
 
-    File_Name = "test.html" #input("Enter file name to be deleted or press * for whole files in folder:")
-    StringToBeDelted = "Thomas" #input("Enter the string you want to delete:")
+   
 
 
     #Test for which operation: change on file or running on all files.
@@ -31,14 +30,18 @@ def Delete():
 
     #if file located or the target is to run and delete string in all files
     else:
-        RunOnAllFile()
+        RunOnAllFile(StringToBeDelted)
         
 
 
 
 
-def RunOnAllFile():
+def RunOnAllFile(StringToBeDelted):
     print("RunOnAllFile Function Activated.\n")
+
+    for filename in os.listdir('.'):
+        if(filename.lower().endswith('.html')):
+            ChangeSingleFile(filename,StringToBeDelted)
     
     
 
@@ -89,4 +92,8 @@ def test_if_string_exists_and_delete(file_name,StringToBeDelted):
 
 
 if __name__ == "__main__":
-    Delete()
+
+    File_Name = "*" #input("Enter file name to be deleted or press * for whole files in folder:")
+    StringToBeDelted = "StringToBeDelted" #input("Enter the string you want to delete:")
+
+    Delete(File_Name, StringToBeDelted)

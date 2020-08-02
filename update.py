@@ -2,14 +2,11 @@ import os
 
 #The Main function of the moudlue.
 #Can Update String in one file or run on all files in folders and Update a string inside.
-def Update():
+def Update(File_Name, StringToBeUpdated, New_Updateted_String):
 
     print("Update Script Activated:\n")
 
-    File_Name = "test.html" #input("Enter file name to be Updated or press * for whole files in folder:")
-    StringToBeDelted = "Thomas" #input("Enter the string you want to Update:")
-    New_Updateted_String = "Hey Hey I am new here" #input("Enter the new string:")
-
+    
     #Test for which operation: change on file or running on all files.
     operation = File_Name.find('*')
    
@@ -26,26 +23,29 @@ def Update():
             exit()
 
         #if file located or the target is to run and Update string in all files
-        ChangeSingleFile(File_Name, StringToBeDelted, New_Updateted_String)
+        ChangeSingleFile(File_Name, StringToBeUpdated, New_Updateted_String)
         
 
     #if file located or the target is to run and Update string in all files
     else:
-        RunOnAllFile()
+        RunOnAllFile(StringToBeUpdated, New_Updateted_String)
         
 
 
 
 
-def RunOnAllFile():
+def RunOnAllFile(StringToBeUpdated, New_Updateted_String):
     print("RunOnAllFile Function Activated.\n")
+    for filename in os.listdir('.'):
+        if(filename.lower().endswith('.html')):
+            ChangeSingleFile(filename, StringToBeUpdated, New_Updateted_String)
     
     
 
 
-def ChangeSingleFile(file_name, StringToBeDelted, New_Updateted_String):
+def ChangeSingleFile(file_name, StringToBeUpdated, New_Updateted_String):
         print("ChangeSingleFile Function Activated on {}.\n".format(file_name))
-        test_if_string_exists_and_Update(file_name, StringToBeDelted, New_Updateted_String)
+        test_if_string_exists_and_Update(file_name, StringToBeUpdated, New_Updateted_String)
 
 
 
@@ -89,4 +89,9 @@ def test_if_string_exists_and_Update(file_name, StringToBeDelted, New_Updateted_
 
 
 if __name__ == "__main__":
-    Update()
+
+    File_Name = "*" #input("Enter file name to be Updated or press * for whole files in folder:")
+    StringToBeDelted = "Thomas" #input("Enter the string you want to Update:")
+    New_Updateted_String = "Hey Hey I am the new Thomas" #input("Enter the new string:")
+
+    Update(File_Name, StringToBeDelted, New_Updateted_String)
